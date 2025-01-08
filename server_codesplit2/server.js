@@ -18,7 +18,7 @@ mongoose.connect(DB_URI)
     .catch((error) => {
         console.error('Error connecting to MongoDB:', error)
     })
-
+ 
 // Define a Schema and Model for storing data with a single "text" field
 const todoSchema = new mongoose.Schema({
     text: { type: String, required: true },
@@ -32,14 +32,14 @@ app.get('/', (req, res) => {
 })
 app.get('/data', async (req, res) => {
     try { 
-        console.log("/data")
+        console.log("/data  fetching ...")
 
         const todos = await Todo.find() // Fetch all todos from MongoDB
         res.json(todos) // Send the list of todos back as a JSON response
     } catch (error) {
         console.error('Error fetching todos:', error)
         res.status(500).json({ message: 'Error fetching todos', error })
-    }
+    } 
 })
 
 // Route to handle form submission and store in DB

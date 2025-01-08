@@ -2,26 +2,32 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import API_ENDPOINTS from '../api/endpoints'
 import axiosInstance from '../api/axiosInstance'
+import useSWR from 'swr'
+
+const fetcher = url => axiosInstance.get(url).then(r => r.data)
 
 export default function useDatabaseTodos() {
-    const [todos, setTodos] = useState([])
-    const [loading, setLoading] = useState(false)
+    // const[todos,setTodos] = useState([])
+    // const[loading,setLoading] = useState(false)
+    // console.log("useDatabaseTodos rendered");
+    
+    const { data: todos, error, isLoading: loading } = useSWR(API_ENDPOINTS.FETCH_DATA, fetcher)
 
-    async function fetchData() {
-        setLoading(true)
-        try {
-            const { data } = await axiosInstance.get(API_ENDPOINTS.FETCH_DATA)
-            setTodos(data)
-        } catch (error) {
-            console.error("Error fetching todos:", error)
-        } finally {
-            setLoading(false)
-        }
-    }
+    // async function fetchData() {
+    //     setLoading(true)
+    //     try {
+    //         const { data } = await axiosInstance.get(API_ENDPOINTS.FETCH_DATA)
+    //         setTodos(data)
+    //     } catch (error) {
+    //         console.error("Error fetching todos:", error)
+    //     } finally {
+    //         setLoading(false)
+    //     }
+    // }
 
-    useEffect(() => {
-        fetchData()
-    }, [])
+    // useEffect(() => {
+    //     fetchData()
+    // }, [])
 
     const addTodo = async (todo) => {
         setLoading(true)
@@ -50,8 +56,8 @@ export default function useDatabaseTodos() {
     }
 
     return {
-        addTodo,
-        removeTodo,
+        // addTodo,
+        // removeTodo,
         todos,
         loading
     }
