@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   return (
@@ -26,12 +26,21 @@ const Navbar = () => {
               <li className="nav-item">
                 <Link className="nav-link" to="/localstorage">Local Storage Todos</Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/scroll">Scroll JSON</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/swr">Scroll swr</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/test">Test</Link>
+              </li>
             </ul>
           </div>
         </div>
       </nav>
     </header>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

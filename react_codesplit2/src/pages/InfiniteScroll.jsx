@@ -2,7 +2,7 @@ import React from "react";
 import useScroll from "../hooks/Scroll/useScroll";
 
 const InfiniteScroll = () => {
-  const { posts, loading, hasMore, loader } = useScroll();
+  const { posts, loading, hasMore, ref } = useScroll();
 
   return (
     <div>
@@ -15,12 +15,13 @@ const InfiniteScroll = () => {
         ))}
       </div>
 
-      {loading && <p>Loading...</p>}
-      {!hasMore && <p>No more posts</p>}
+      {hasMore && <p>No more posts</p>}
 
-      <div ref={loader}>
+      <div ref={ref}>
         {loading && <p>Loading more posts...</p>}
       </div>
     </div>
   );
 };
+
+export default InfiniteScroll
