@@ -13,24 +13,24 @@ export default function useDatabaseTodos() {
     
     const { data: todos, error, isLoading: loading } = useSWR(API_ENDPOINTS.FETCH_DATA, fetcher)
 
-    // async function fetchData() {
-    //     setLoading(true)
-    //     try {
-    //         const { data } = await axiosInstance.get(API_ENDPOINTS.FETCH_DATA)
-    //         setTodos(data)
-    //     } catch (error) {
-    //         console.error("Error fetching todos:", error)
-    //     } finally {
-    //         setLoading(false)
-    //     }
-    // }
+    async function fetchData() {
+        // setLoading(true)
+        try {
+            const { data } = await axiosInstance.get(API_ENDPOINTS.FETCH_DATA)
+            setTodos(data)
+        } catch (error) {
+            console.error("Error fetching todos:", error)
+        } finally {
+            // setLoading(false)
+        }
+    }
 
-    // useEffect(() => {
-    //     fetchData()
-    // }, [])
+    useEffect(() => {
+        fetchData()
+    }, [])
 
     const addTodo = async (todo) => {
-        setLoading(true)
+        // setLoading(true)
         try {
             const { data } = await axiosInstance.post(API_ENDPOINTS.SUBMIT_DATA, {
                 text: todo
@@ -39,7 +39,7 @@ export default function useDatabaseTodos() {
         } catch (error) {
             console.error("Error adding todo:", error)
         } finally {
-            setLoading(false)
+            // setLoading(false)
         }
     }
 
