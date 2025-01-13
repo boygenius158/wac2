@@ -1,53 +1,165 @@
-import React from "react"
-import useSWRInfinite from "swr/infinite"
-import { useInView } from "react-intersection-observer"
+import React from 'react';
+import { Form, Button, Row, Col } from 'react-bootstrap';
+import useForm from '../hooks/useForm'; // Import custom hook
+import InputField from '../components/InputField'; // Import reusable input field component
+import SelectField from '../components/SelectField'; // Import reusable select field component
+import TextAreaField from '../components/TextAreaField'; // Import reusable textarea field component
+import StatesData from '../api/places.json';
 
-const fetcher = (url) => fetch(url).then((res) => res.json())
-const PAGE_SIZE = 10
+const initialData = {
+  firstName: '',
+  lastName: '',
+  street: '',
+  city: '',
+  country: 'India',
+  pincode: '',
+  message: '',
+  district: '',
+  state: '',
+};
 
-export default function Posts() {
-    const {
-        data,
-        size,
-        setSize,
-        isValidating,
-    } = useSWRInfinite(
-        (pageIndex) =>
-            `https://jsonplaceholder.typicode.com/posts?_page=${pageIndex + 1
-            }&_limit=${PAGE_SIZE}`,
-        fetcher,
-        { revalidateFirstPage: false, dedupingInterval: 1000 }
-    )
+const Test = () => {
+  const {
+    details,
+    errors,
+    selectedState,
+    selectedDistrict,
+    handleChange,
+    handleStateChange,
+    handleDistrictChange,
+    handleSubmit,
+  } = useForm(initialData);
 
-    const posts = data ? [].concat(...data) : []
-    const isLoadingMore = isValidating
-    const isReachingEnd = data && data[data.length - 1]?.length < PAGE_SIZE
+  const allStates = StatesData.states.map((e) => e.state);
+  const districts = StatesData.states.find((e) => e.state === selectedState)?.districts || [];
 
-    // Using useInView's callback to fetch more data when in view
-    const { ref: lastPostRef } = useInView({
-        threshold: 0.5,
-        onChange: (inView) => {
-            if (inView && !isLoadingMore && !isReachingEnd) {
-                setSize((size) => size + 1)
-            }
-        },
-    })
+  return (
+    <div className="container mt-5">
+      <Form onSubmit={handleSubmit}>
+        <Row className="mb-4">
+          <Col md={6}>
+            <InputField
+              name="firstName"
+              label="First Name"
+              value={details.firstName}
+              onChange={handleChange}
+              placeholder="Enter first name"
+              error={errors.firstName}
+            />
+          </Col>
+        </Row>
 
-    return (
-        <div>
-            <div>Pages Loaded: {size}</div>
-            {posts.map((post, index) => {
-                if (posts.length === index + 1) {
-                    return (
-                        <p key={post.id} ref={lastPostRef}>
-                            {post.title}
-                        </p>
-                    )
-                }
-                return <p key={post.id}>{post.title}</p>
-            })}
-            {isLoadingMore && <div>Loading more posts...</div>}
-            {isReachingEnd && <div>No more posts</div>}
-        </div>
-    )
-}
+        <Row className="mb-4">
+          <Col md={6}>
+            <InputField
+              name="lastName"
+              label="Last Name"
+              value={details.lastName}
+              onChange={handleChange}
+              placeholder="Enter last name"
+              error={errors.lastName}
+            />
+          </Col>
+        </Row>
+
+        <Row className="mb-4">
+          <Col md={6}>
+            <InputField
+              name="street"
+              label="Street"
+              value={details.street}
+              onChange={handleChange}
+              placeholder="Enter street"
+              error={errors.street}
+            />
+          </Col>
+        </Row>
+
+        <Row className="mb-4">
+          <Col md={6}>
+            <InputField
+              name="city"
+              label="City"
+              value={details.city}
+              onChange={handleChange}
+              placeholder="Enter city"
+              error={errors.city}
+            />
+          </Col>
+        </Row>
+
+        <Row className="mb-4">
+          <Col md={6}>
+            <SelectField
+              name="country"
+              label="Country"
+              value={details.country}
+              onChange={handleChange}
+              options={['India']}
+              disabled
+            />
+          </Col>
+        </Row>
+
+        <Row className="mb-4">
+          <Col md={6}>
+            <InputField
+              name="pincode"
+              label="Pincode"
+              value={details.pincode}
+              onChange={handleChange}
+              placeholder="Enter pincode"
+              error={errors.pincode}
+              maxLength={6}
+            />
+          </Col>
+        </Row>
+
+        <Row className="mb-4">
+          <Col md={6}>
+            <TextAreaField
+              name="message"
+              label="Message (Optional)"
+              value={details.message}
+              onChange={handleChange}
+              placeholder="Enter your message"
+            />
+          </Col>
+        </Row>
+
+        <Row className="mb-4">
+          <Col md={6}>
+            <SelectField
+              name="state"
+              label="State"
+              value={selectedState}
+              onChange={handleStateChange}
+              options={allStates}
+              error={errors.state}
+            />
+          </Col>
+        </Row>
+
+        <Row className="mb-4">
+          <Col md={6}>
+            <SelectField
+              name="district"
+              label="District"
+              value={selectedDistrict}
+              onChange={handleDistrictChange}
+              options={districts}
+              error={errors.district}
+              disabled={!districts.length}
+            />
+          </Col>
+        </Row>
+
+        <Button variant="primary" type="submit" className="w-100">
+          Submit
+        </Button>
+      </Form>
+    </div>
+  );
+};
+
+export default Test;

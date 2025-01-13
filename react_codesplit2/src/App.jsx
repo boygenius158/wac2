@@ -1,7 +1,7 @@
 import React from 'react';
+
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import DatabaseTodos from './pages/DatabaseTodos';
 import LocalStorageTodos from './pages/LocalStorageTodos';
 import Navbar from './components/Navbar'; // Import Navbar
@@ -21,6 +21,7 @@ export default function App() {
           <Route path="/localstorage" element={<LocalStorageTodos />} />
           <Route path="/scroll" element={<InfiniteScroll />} />
           <Route path="/swr" element={<SWRInfiniteScroll />} />
+          {/* <Route path="/test" element={<Test />} /> */}
           <Route path="/test" element={<Test />} />
         </Routes>
       </div>
