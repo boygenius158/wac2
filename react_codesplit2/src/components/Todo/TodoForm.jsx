@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import validateForm from '../utils/validateForm'
-import useToast from '../hooks/Toast/useToast'
+import validateForm from '../../utils/validateForm'
+import useToast from '../../hooks/Toast/useToast'
 export default function TodoForm({ onSubmit, initialData = {}, existingTask, loading }) {
   const [taskInput, setTaskInput] = useState(initialData.text || '')
   const [errorMessage, setErrorMessage] = useState('')

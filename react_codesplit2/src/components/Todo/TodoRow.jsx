@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import ConfirmationModal from './ConfirmationModal'
-import useToast from '../hooks/Toast/useToast'
+import ConfirmationModal from '../ConfirmationModal'
+import useToast from '../../hooks/Toast/useToast'
 
 export default function TodoRow({ todo, index, onRemove }) {
   const [showModal, setShowModal] = useState(false)

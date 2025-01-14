@@ -1,9 +1,9 @@
 import React from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import useForm from '../hooks/useForm'; // Import custom hook
-import InputField from '../components/InputField'; // Import reusable input field component
-import SelectField from '../components/SelectField'; // Import reusable select field component
-import TextAreaField from '../components/TextAreaField'; // Import reusable textarea field component
+import InputField from '../components/Form/InputField'; // Import reusable input field component
+import SelectField from '../components/Form/SelectField'; // Import reusable select field component
+import TextAreaField from '../components/Form/TextAreaField'; // Import reusable textarea field component
 import StatesData from '../api/places.json';
 
 const initialData = {

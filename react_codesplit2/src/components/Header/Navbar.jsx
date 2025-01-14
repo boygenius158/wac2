@@ -8,7 +8,8 @@ const Navbar = () => {
     { path: '/scroll', label: 'Scroll JSON' },
     { path: '/swr', label: 'Scroll swr' },
     { path: '/test', label: 'Test' },
-    // { path: '/test', label: 'Test' },
+    { path: '/test2', label: 'Test2' },
+    { path: '/test3', label: 'Test3' },
   ];
 
   return (
